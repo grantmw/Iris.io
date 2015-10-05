@@ -1,0 +1,16 @@
+.container {
+  margin: 20px auto;
+  width: 600px;
+  padding: 0px 20px 20px 20px;
+  border: 1px dotted black;
+  text-align: center;
+}
+th {
+  text-align: left;
+}
+
+.twentytwenty {
+  font-size: 2.133956714256em;
+  font-family: Courier;
+  /*font-weight: bold;*/
+}
