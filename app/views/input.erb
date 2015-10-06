@@ -1,30 +1,20 @@
-
-<% if @level == 2080 %>
-<div class ='twentytwenty'>
-<%=@list%>
-</div>
-
-
-// <script type="text/javascript">
-
-// var ask_for_input = prompt("type in what you see without punctuation");
-// // if(ask_for_input === "azuel"){
-// //   window.location="/2060";
-// // }
-// // else window.location="/result";
-
-// </script>
-
-<%end%>
-
-
-<% if @level == 2060 %>
 <div>
-<%=@list%>
+<style>
+p {font-size: <%= @font_size %>em }
+</style>
+
+
+<p> <%=@list%> </p>
+
 </div>
 
-<script type="text/javascript">
-var ask_for_input = prompt("type in what you see without punctuation")
-</script>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<form action='/users/:u_id/tests/vision' method='post'>
+  <input type='text' name='answer'>
+  <input type="hidden" name='fiveletters' value = <%=@list%>>
+  <input type='submit' value = 'Submit'>
+</form>
 
-<%end%>
+
+
+
