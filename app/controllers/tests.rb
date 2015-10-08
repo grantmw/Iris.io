@@ -15,12 +15,12 @@ get '/users/:u_id/tests/vision' do
     @list = list
   if not session[:line]
     session[:line] = 1
-    # @list = "ZA     O     B     I"
+    session[:tries] = 0
     # @font_size = 200
 
     erb :input
-  end
 
+  end
   # if session[:line] == 1
   #   @list = "RDOEN"
   #   @font_size = 21.33956714
@@ -81,26 +81,32 @@ end
 
 
 post '/users/:u_id/tests/vision' do
-  p params
-  if params[:answer] == params[:fiveletters].downcase
-    p "it set"
-    session[:line] += 1
-    redirect "/users/#{params[:u_id]}/tests/vision"
-  else
-    redirect "/users/#{params[:u_id]}/tests/vision"
+  while session[:line] < 12 && session[:tries] < 5
+    if params[:answer] == params[:fiveletters].downcase
+      p "it set"
+      session[:line] += 1
+      redirect "/users/#{params[:u_id]}/tests/vision"
+    else
+      session[:tries] += 1
+      redirect "/users/#{params[:u_id]}/tests/vision"
+    end
   end
-
-
+    session[:tries] = 0
+    redirect "/users/#{params[:u_id]}/tests/results"
 end
 
-get '/2060' do
-  @level = 2060
-  @list = "PYUNI"
 
-  erb :input
+get '/users/:u_id/tests/results' do
+  @result = Vision.find(session[:line]).level
+  session[:line] = 1
+  SavedTest.create(user_id: params[:u_id], result: @result, test_type: 'vision')
+  #make vision a wildcard --
+  #restful: tests/:test_id/results - or something like that
+  erb :results
 end
+
 
 get '/users/:u_id/tests/colorblindness' do
-  p 'hello'
+  p 'hellpooooooo'
 end
 
