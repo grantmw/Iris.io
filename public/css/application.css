@@ -12,5 +12,11 @@ th {
 div {
   font-family: Courier;
   letter-spacing: 100px;
+  margin-top: 10%;
+  text-align: center;
   /*font-weight: bold;*/
+}
+
+form {
+  text-align: center;
 }

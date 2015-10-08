@@ -32,7 +32,11 @@ post '/users/authenticate' do
 end
 
 get '/users/logout' do
-  session.delete('id')
+  session.destroy
   redirect '/'
 end
 
+get '/users/:id/reset' do
+  session[:line] = 1
+  redirect "/users/#{params[:id]}/tests"
+end

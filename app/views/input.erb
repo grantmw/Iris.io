@@ -1,20 +1,17 @@
 <div>
 <style>
-p {font-size: <%= @font_size %>em }
+p {font-size: <%= Vision.find(session[:line]).font_size.to_f%>em}
 </style>
-
 
 <p> <%=@list%> </p>
 
 </div>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<form action='/users/:u_id/tests/vision' method='post'>
-  <input type='text' name='answer'>
+
+<form action='/users/<%=session[:id]%>/tests/vision' method='post'>
+  <input type='text' name='answer' autofocus="autofocus">
   <input type="hidden" name='fiveletters' value = <%=@list%>>
   <input type='submit' value = 'Submit'>
 </form>
 
-
-
-
+<a href="/users/<%=session[:id]%>/reset"><button>Reset</button></a>
