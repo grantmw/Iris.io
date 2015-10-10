@@ -81,10 +81,11 @@ end
 
 
 post '/users/:u_id/tests/vision' do
-  while session[:line] < 12 && session[:tries] < 5
+  while session[:line] < 12 && session[:tries] < 4
     if params[:answer] == params[:fiveletters].downcase
       p "it set"
       session[:line] += 1
+      session[:tries] = 0
       redirect "/users/#{params[:u_id]}/tests/vision"
     else
       session[:tries] += 1
@@ -97,16 +98,24 @@ end
 
 
 get '/users/:u_id/tests/results' do
-  @result = Vision.find(session[:line]).level
+  unless session[:line] == 1
+  @result = Vision.find(session[:line]-1).level
   session[:line] = 1
-  SavedTest.create(user_id: params[:u_id], result: @result, test_type: 'vision')
+  SavedTest.create(user_id: params[:u_id], result_both: @result, test_type: 'vision')
   #make vision a wildcard --
   #restful: tests/:test_id/results - or something like that
   erb :results
+  else
+  @result = Vision.find(session[:line]).level
+  session[:line] = 1
+  SavedTest.create(user_id: params[:u_id], result_both: @result, test_type: 'vision')
+  erb :results
+  end
 end
 
 
 get '/users/:u_id/tests/colorblindness' do
   p 'hellpooooooo'
+  redirect '/'
 end
 

@@ -21,6 +21,7 @@
   <a href="/">Home</a>
   <% if session[:id] %>
     <a href="/users/logout">Logout</a>
+    <a href="/users/<%=session[:id]%>/profile">Profile</a>
   <% end %>
     <hr>
   <%= yield %>

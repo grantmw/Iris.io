@@ -40,3 +40,27 @@ get '/users/:id/reset' do
   session[:line] = 1
   redirect "/users/#{params[:id]}/tests"
 end
+
+get '/users/:id/profile' do
+  if session[:id] == params[:id].to_i
+    @user = User.find(session[:id])
+    erb :profile
+  else
+    redirect '/'
+  end
+end
+
+get '/users/:id/profile/:type' do
+  @type = params[:type]
+  if session[:id] == params[:id].to_i
+    @user = User.find(session[:id])
+    erb :profile
+  else
+    redirect '/'
+  end
+end
+
+
+
+
+

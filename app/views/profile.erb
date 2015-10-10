@@ -1,0 +1,65 @@
+
+
+<div>
+  <h3>Results:</h3>
+<a href="/users/<%= session[:id] %>/profile/both"><button>Both Eyes</button></a>
+<a href="/users/<%= session[:id] %>/profile/single"><button>Single Vision</button></a>
+<a href="/users/<%= session[:id] %>/profile/cb"><button>Color Blindness</button></a>
+</div>
+
+<%if @type == 'both'%>
+<div>
+    <h1 class="profile_header">Your Past Results</h1>
+    <table class = "results_table">
+      <tr>
+        <td>Date taken</td>
+        <td>Both Eyes</td>
+
+    <% @user.saved_tests.each do |test| %>
+      <tr>
+        <td><%= test.created_at%></td>
+        <td><%= test.result_both %></td>
+
+      </tr>
+    <% end %>
+    </table>
+</div>
+<%end%>
+
+<%if @type == 'single'%>
+<div>
+    <h1 class="profile_header">Your Past Results</h1>
+    <table class = "results_table">
+      <tr>
+        <td>Date taken</td>
+        <td>Right Eye</td>
+        <td>Left Eye</td>
+    <% @user.saved_tests.each do |test| %>
+      <tr>
+        <td><%= test.created_at%></td>
+        <td><%= test.result_right %></td>
+        <td><%= test.result_left %></td>
+      </tr>
+    <% end %>
+    </table>
+</div>
+<%end%>
+
+<%if @type == 'cb'%>
+<div>
+    <h1 class="profile_header">Your Past Results</h1>
+    <table class = "results_table">
+      <tr>
+        <td>Date taken</td>
+        <td>Result</td>
+
+    <% @user.saved_tests.each do |test| %>
+      <tr>
+        <td><%= test.created_at%></td>
+        <td><%= test.result_cb %></td>
+
+      </tr>
+    <% end %>
+    </table>
+</div>
+<%end%>

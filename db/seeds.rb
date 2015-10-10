@@ -10,3 +10,5 @@ Vision.create(level: "20/30", font_size: 3.200935071)
 Vision.create(level: "20/25", font_size: 2.66744589282)
 Vision.create(level: "20/20", font_size: 2.133956714256)
 Vision.create(level: "20/15", font_size: 1.600467536)
+
+User.create(name: 'grant', age: 25, email: 'grant@gmail.com', password: 111)
