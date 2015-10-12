@@ -10,7 +10,7 @@ get '/users/:u_id/tests' do
   end
 end
 
-get '/users/:u_id/tests/vision' do
+get '/users/:u_id/tests/vision/both' do
     list = ('A'..'Z').to_a.sample(5).join.upcase
     @list = list
   if not session[:line]
@@ -80,24 +80,52 @@ get '/users/:u_id/tests/vision' do
 end
 
 
-post '/users/:u_id/tests/vision' do
+post '/users/:u_id/tests/vision/both' do
   while session[:line] < 12 && session[:tries] < 4
     if params[:answer] == params[:fiveletters].downcase
       p "it set"
       session[:line] += 1
       session[:tries] = 0
-      redirect "/users/#{params[:u_id]}/tests/vision"
+      redirect "/users/#{params[:u_id]}/tests/vision/both"
     else
       session[:tries] += 1
-      redirect "/users/#{params[:u_id]}/tests/vision"
+      redirect "/users/#{params[:u_id]}/tests/vision/both"
     end
   end
     session[:tries] = 0
     redirect "/users/#{params[:u_id]}/tests/results"
 end
+# post '/users/:u_id/tests/vision/:eye' do
+
+#   while session[:line] < 12 && session[:tries] < 4
+#     if params[:answer] == params[:fiveletters].downcase
+#       p "it set"
+#       session[:line] += 1
+#       session[:tries] = 0
+#       redirect "/users/#{params[:u_id]}/tests/vision/#{params[:eye]}"
+#     else
+#       session[:tries] += 1
+#       redirect "/users/#{params[:u_id]}/tests/vision/#{params[:eye]}"
+#     end
+#   end
+#   if params[:eye] == "both"
+#     session[:tries] = 0
+#     redirect "/users/#{params[:u_id]}/tests/results/#{params[:eye]}"
+#   else
+      # session[:tries] = 0
+      # if session[:eye_counter] ? session[:eye_counter] += 1 : session[eye_counter] = 0
+      # end
+      # redirect "/users/#{params[:u_id]}/tests/results/#{params[:eye]}"
+# end
+
 
 
 get '/users/:u_id/tests/results' do
+  # if session[:eye_counter] == 0 - how do we add in two results in one row?????? answer: use sessions
+    # session[left_eye] = Vision.find(session[:line]-1).level
+  # elsif session[:eye_counter] == 1
+    #SavedTest.create(user_id: params[:u_id], result_left: session[:left_eye], result_right: Vision.find(session[:line]-1).level) ) <<< something like this.
+  #   session[:result1] =
   unless session[:line] == 1
   @result = Vision.find(session[:line]-1).level
   session[:line] = 1
