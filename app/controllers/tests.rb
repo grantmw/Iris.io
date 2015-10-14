@@ -10,17 +10,120 @@ get '/users/:u_id/tests' do
   end
 end
 
-get '/users/:u_id/tests/vision/both' do
+get '/users/:u_id/tests/vision/type' do
+
+  if session[:id] == params[:u_id].to_i
+    erb :vision_type
+  else
+    redirect '/'
+  end
+end
+
+
+get '/users/:u_id/tests/vision/:type' do
     list = ('A'..'Z').to_a.sample(5).join.upcase
     @list = list
-  if not session[:line]
-    session[:line] = 1
-    session[:tries] = 0
-    # @font_size = 200
+  if params[:type] == 'both'
+    session.delete(:goagain) #when you visit both, reset goagain
+    p "*" * 50
+    p session[:goagain]
+    p "*" * 50
+    if !session[:line]
+      session[:line] = 1
+      session[:tries] = 0
+      erb :input
+    end
 
     erb :input
 
+  elsif params[:type] == 'single'
+
+    if !session[:goagain]
+      session[:goagain] = 'on'
+    # elsif session[:goagain] = 'on'
+    #   session[:goagain] = 'off'
+    end
+    if !session[:line]
+      session[:line] = 1
+      session[:tries] = 0
+      erb :input
+    end
+    p "*" * 50
+    p session[:goagain]
+    p "*" * 50
+    erb :input
   end
+end
+
+
+post '/users/:u_id/tests/vision/:type' do
+  while session[:line] < 12 && session[:tries] < 4
+    if params[:answer] == params[:fiveletters].downcase
+      session[:line] += 1 #if right, increment up
+      session[:tries] = 0 #reset tries
+      redirect "/users/#{params[:u_id]}/tests/vision/#{params[:type]}"
+    else
+      session[:tries] += 1
+      redirect "/users/#{params[:u_id]}/tests/vision/#{params[:type]}"
+    end
+  end
+  session[:tries] = 0
+  redirect "/users/#{params[:u_id]}/tests/results"
+end
+
+
+
+
+get '/users/:u_id/tests/results' do
+
+  if session[:goagain] == 'on'
+    unless session[:line] == 1
+      @result = Vision.find(session[:line]-1).level
+      session[:result_left] = @result
+      session[:line] = 1
+    else
+      @result = Vision.find(session[:line]).level
+      session[:result_left] = @result
+      session[:line] = 1
+    end
+    erb :results
+
+  elsif session[:goagain] == 'off'
+    unless session[:line] == 1
+
+      @result = Vision.find(session[:line]-1).level
+      SavedTest.create(user_id: params[:u_id], result_left: session[:result_left], result_right: @result, test_type: 'vision')
+    else
+      @result = Vision.find(session[:line]).level
+      SavedTest.create(user_id: params[:u_id], result_left: session[:result_left], result_right: @result, test_type: 'vision')
+
+    end
+    session[:goagain] == nil
+    session[:line] = 1
+    erb :results
+
+  else
+    unless session[:line] == 1
+      @result = Vision.find(session[:line]-1).level
+      session[:line] = 1
+      SavedTest.create(user_id: params[:u_id], result_both: @result, test_type: 'vision')
+      #make vision a wildcard --
+      #restful: tests/:test_id/results - or something like that
+      erb :results
+    else
+      @result = Vision.find(session[:line]).level
+      session[:line] = 1
+      SavedTest.create(user_id: params[:u_id], result_both: @result, test_type: 'vision')
+      erb :results
+    end
+  end
+end
+
+
+get '/users/:u_id/tests/colorblindness' do
+  p 'hellpooooooo'
+  redirect '/'
+end
   # if session[:line] == 1
   #   @list = "RDOEN"
   #   @font_size = 21.33956714
@@ -74,76 +177,6 @@ get '/users/:u_id/tests/vision/both' do
   #   session[:line] = 1
   #   erb :input
   # end
-  erb :input
-   #strings will automatically go to the browser
-
-end
 
 
-post '/users/:u_id/tests/vision/both' do
-  while session[:line] < 12 && session[:tries] < 4
-    if params[:answer] == params[:fiveletters].downcase
-      p "it set"
-      session[:line] += 1
-      session[:tries] = 0
-      redirect "/users/#{params[:u_id]}/tests/vision/both"
-    else
-      session[:tries] += 1
-      redirect "/users/#{params[:u_id]}/tests/vision/both"
-    end
-  end
-    session[:tries] = 0
-    redirect "/users/#{params[:u_id]}/tests/results"
-end
-# post '/users/:u_id/tests/vision/:eye' do
-
-#   while session[:line] < 12 && session[:tries] < 4
-#     if params[:answer] == params[:fiveletters].downcase
-#       p "it set"
-#       session[:line] += 1
-#       session[:tries] = 0
-#       redirect "/users/#{params[:u_id]}/tests/vision/#{params[:eye]}"
-#     else
-#       session[:tries] += 1
-#       redirect "/users/#{params[:u_id]}/tests/vision/#{params[:eye]}"
-#     end
-#   end
-#   if params[:eye] == "both"
-#     session[:tries] = 0
-#     redirect "/users/#{params[:u_id]}/tests/results/#{params[:eye]}"
-#   else
-      # session[:tries] = 0
-      # if session[:eye_counter] ? session[:eye_counter] += 1 : session[eye_counter] = 0
-      # end
-      # redirect "/users/#{params[:u_id]}/tests/results/#{params[:eye]}"
-# end
-
-
-
-get '/users/:u_id/tests/results' do
-  # if session[:eye_counter] == 0 - how do we add in two results in one row?????? answer: use sessions
-    # session[left_eye] = Vision.find(session[:line]-1).level
-  # elsif session[:eye_counter] == 1
-    #SavedTest.create(user_id: params[:u_id], result_left: session[:left_eye], result_right: Vision.find(session[:line]-1).level) ) <<< something like this.
-  #   session[:result1] =
-  unless session[:line] == 1
-  @result = Vision.find(session[:line]-1).level
-  session[:line] = 1
-  SavedTest.create(user_id: params[:u_id], result_both: @result, test_type: 'vision')
-  #make vision a wildcard --
-  #restful: tests/:test_id/results - or something like that
-  erb :results
-  else
-  @result = Vision.find(session[:line]).level
-  session[:line] = 1
-  SavedTest.create(user_id: params[:u_id], result_both: @result, test_type: 'vision')
-  erb :results
-  end
-end
-
-
-get '/users/:u_id/tests/colorblindness' do
-  p 'hellpooooooo'
-  redirect '/'
-end
 

@@ -1,0 +1,11 @@
+<div class='container'>
+<a href="/users/<%=session[:id]%>/tests/vision/both"><button style="border: 1px solid black">Both</button></a>
+
+
+<a href="/users/<%=session[:id]%>/tests/vision/single"><button style="color:red; border: 1px solid black">Single</button>
+  <%if session[:goagain] == 'off' %>
+    <%session[:goagain] = 'on'%>
+  <%end%>
+
+</a>
+</div>
