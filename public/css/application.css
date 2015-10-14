@@ -1,0 +1,46 @@
+.container {
+  margin: 20px auto;
+  width: 600px;
+  padding: 0px 20px 20px 20px;
+  border: 1px dotted black;
+  text-align: center;
+}
+th {
+  text-align: left;
+}
+
+.input {
+  font-family: Courier;
+  letter-spacing: 100px;
+  margin-top: 10%;
+  text-align: center;
+  /*font-weight: bold;*/
+}
+
+form {
+  text-align: center;
+}
+
+.result {
+  font-family: Courier;
+  margin-top: 10%;
+  text-align: center;
+  font-size: 10em;
+  font-weight: bold;
+}
+
+tr {
+  border: 2px dashed black;
+  text-align: center;
+
+}
+
+.results_table {
+  width: 60%;
+  margin: auto;
+  margin-top: 4em;
+}
+
+.profile_header {
+text-align: center;
+}
