@@ -1,11 +1,35 @@
-<div class='container'>
-<a href="/users/<%=session[:id]%>/tests/vision/both"><button style="border: 1px solid black">Both</button></a>
+<div class="jumbotron vertical-center">
+  <div class='container'>
+  <div class="row">
+    <h1 class="text-center wizard">Pick a Test</h1>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-3 col-sm-6  text-center">
+      <a href="/users/<%=session[:id]%>/tests/vision/both"><button type="button" class="btn btn-primary btn-lg">Both</button></a>
+      <br>
+      <h3><small>Visual acuity test using both eyes</small>
+    </div>
 
+    <div class="col-md-3 col-sm-6  text-center">
+      <a href="/users/<%=session[:id]%>/tests/vision/single"><button type="button" class="btn btn-success btn-lg">Single</button>
+        <%if session[:goagain] == 'off' %>
+          <%session[:goagain] = 'on'%>
+        <%end%>
 
-<a href="/users/<%=session[:id]%>/tests/vision/single"><button style="color:red; border: 1px solid black">Single</button>
-  <%if session[:goagain] == 'off' %>
-    <%session[:goagain] = 'on'%>
-  <%end%>
+      </a>
+      <br>
+      <h3><small> Visual acuity test for each individual eye </small></h3>
+    </div>
+    <div class="col-md-3"></div>
 
-</a>
+    </div>
+  </div>
 </div>
+<div class="text-center col-sm-12">
+  <img src="/pip/visioninstructions.png">
+</div>
+
+
+

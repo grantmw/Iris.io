@@ -1,7 +1,10 @@
 enable :sessions
 
+
+
 get '/users/:u_id/tests' do
   # list of all tests, page after you log in
+  session[:line] = 1
   if session[:id] == params[:u_id].to_i
     @user = User.find(params[:u_id])
     erb :test_list
@@ -21,8 +24,12 @@ end
 
 
 get '/users/:u_id/tests/vision/:type' do
-    list = ('A'..'Z').to_a.sample(5).join.upcase
-    @list = list
+  if session[:line] != 1
+    @list = ('A'..'Z').to_a.sample(5).join.upcase
+  else
+    @list = ('A'..'Z').to_a.sample(4).join.upcase
+  end
+
   if params[:type] == 'both'
     session.delete(:goagain) #when you visit both, reset goagain
     p "*" * 50
@@ -40,6 +47,7 @@ get '/users/:u_id/tests/vision/:type' do
 
     if !session[:goagain]
       session[:goagain] = 'on'
+      session[:tries] = 0
     # elsif session[:goagain] = 'on'
     #   session[:goagain] = 'off'
     end
@@ -57,6 +65,11 @@ end
 
 
 post '/users/:u_id/tests/vision/:type' do
+  p "*" * 80
+  p session[:line]
+  p session[:tries]
+  p "*" * 80
+
   while session[:line] < 12 && session[:tries] < 4
     if params[:answer] == params[:fiveletters].downcase
       session[:line] += 1 #if right, increment up
@@ -77,7 +90,7 @@ end
 get '/users/:u_id/tests/results' do
 
   if session[:goagain] == 'on'
-    unless session[:line] == 1
+    if session[:line] != 1 && session[:line] != 12
       @result = Vision.find(session[:line]-1).level
       session[:result_left] = @result
       session[:line] = 1
@@ -89,7 +102,7 @@ get '/users/:u_id/tests/results' do
     erb :results
 
   elsif session[:goagain] == 'off'
-    unless session[:line] == 1
+    if session[:line] != 1 && session[:line] != 12
 
       @result = Vision.find(session[:line]-1).level
       SavedTest.create(user_id: params[:u_id], result_left: session[:result_left], result_right: @result, test_type: 'vision')
@@ -103,7 +116,7 @@ get '/users/:u_id/tests/results' do
     erb :results
 
   else
-    unless session[:line] == 1
+    if session[:line] != 1 && session[:line] != 12
       @result = Vision.find(session[:line]-1).level
       session[:line] = 1
       SavedTest.create(user_id: params[:u_id], result_both: @result, test_type: 'vision')
@@ -120,10 +133,6 @@ get '/users/:u_id/tests/results' do
 end
 
 
-get '/users/:u_id/tests/colorblindness' do
-  p 'hellpooooooo'
-  redirect '/'
-end
   # if session[:line] == 1
   #   @list = "RDOEN"
   #   @font_size = 21.33956714

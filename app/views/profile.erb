@@ -1,65 +1,81 @@
 
+<div class="container">
+  <div class='text-center'>
+    <h1>Results:</h1>
+    <br>
+    <a href="/users/<%= session[:id] %>/profile/both"><button type="button" class="btn btn-primary">Both Eyes</button></a>
+    <a href="/users/<%= session[:id] %>/profile/single"><button type="button" class="btn btn-primary">Single Vision</button></a>
+    <a href="/users/<%= session[:id] %>/profile/cb"><button type="button" class="btn btn-primary">Color Blindness</button></a>
+    <hr>
+  </div>
 
-<div>
-  <h3>Results:</h3>
-<a href="/users/<%= session[:id] %>/profile/both"><button>Both Eyes</button></a>
-<a href="/users/<%= session[:id] %>/profile/single"><button>Single Vision</button></a>
-<a href="/users/<%= session[:id] %>/profile/cb"><button>Color Blindness</button></a>
+
+    <%if @type == 'both'%>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h1 class="profile_header text-center">Your Past Results</h1>
+
+          <table class="table table-bordered">
+            <tr>
+              <td><strong>Date taken</strong></td>
+              <td><strong>Both Eyes</strong></td>
+
+          <% @user.saved_tests.where.not(result_both: 'No saved tests').each do |test| %>
+            <tr>
+              <td><%= test.created_at%></td>
+              <td><%= test.result_both %></td>
+
+            </tr>
+          <% end %>
+          </table>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    <%end%>
+
+    <%if @type == 'single'%>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h1 class="text-center">Your Past Results</h1>
+          <table class="table table-bordered">
+            <tr>
+              <td><strong>Date taken</strong></td>
+              <td><strong>Right Eye</strong></td>
+              <td><strong>Left Eye</strong></td>
+          <% @user.saved_tests.where.not(result_left: 'No saved tests').each do |test| %>
+            <tr>
+              <td><%= test.created_at%></td>
+              <td><%= test.result_right %></td>
+              <td><%= test.result_left %></td>
+            </tr>
+          <% end %>
+          </table>
+        <div class="col-md-2"></div>
+      </div>
+    <%end%>
+
+    <%if @type == 'cb'%>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h1 class="text-center">Your Past Results</h1>
+          <table class="table table-bordered">
+            <tr>
+              <td><strong>Date taken</strong></td>
+              <td><strong>Result</strong></td>
+
+          <% @user.saved_tests.where.not(result_cb: 'No saved tests').each do |test| %>
+            <tr>
+              <td><%= test.created_at%></td>
+              <td><%= test.result_cb %></td>
+
+            </tr>
+          <% end %>
+          </table>
+        <div class="col-md-2"></div>
+      </div>
+    <%end%>
 </div>
 
-<%if @type == 'both'%>
-<div>
-    <h1 class="profile_header">Your Past Results</h1>
-    <table class = "results_table">
-      <tr>
-        <td>Date taken</td>
-        <td>Both Eyes</td>
-
-    <% @user.saved_tests.each do |test| %>
-      <tr>
-        <td><%= test.created_at%></td>
-        <td><%= test.result_both %></td>
-
-      </tr>
-    <% end %>
-    </table>
-</div>
-<%end%>
-
-<%if @type == 'single'%>
-<div>
-    <h1 class="profile_header">Your Past Results</h1>
-    <table class = "results_table">
-      <tr>
-        <td>Date taken</td>
-        <td>Right Eye</td>
-        <td>Left Eye</td>
-    <% @user.saved_tests.each do |test| %>
-      <tr>
-        <td><%= test.created_at%></td>
-        <td><%= test.result_right %></td>
-        <td><%= test.result_left %></td>
-      </tr>
-    <% end %>
-    </table>
-</div>
-<%end%>
-
-<%if @type == 'cb'%>
-<div>
-    <h1 class="profile_header">Your Past Results</h1>
-    <table class = "results_table">
-      <tr>
-        <td>Date taken</td>
-        <td>Result</td>
-
-    <% @user.saved_tests.each do |test| %>
-      <tr>
-        <td><%= test.created_at%></td>
-        <td><%= test.result_cb %></td>
-
-      </tr>
-    <% end %>
-    </table>
-</div>
-<%end%>
