@@ -47,6 +47,7 @@ get '/users/:u_id/tests/vision/:type' do
 
     if !session[:goagain]
       session[:goagain] = 'on'
+      session[:tries] = 0
     # elsif session[:goagain] = 'on'
     #   session[:goagain] = 'off'
     end
@@ -64,6 +65,11 @@ end
 
 
 post '/users/:u_id/tests/vision/:type' do
+  p "*" * 80
+  p session[:line]
+  p session[:tries]
+  p "*" * 80
+
   while session[:line] < 12 && session[:tries] < 4
     if params[:answer] == params[:fiveletters].downcase
       session[:line] += 1 #if right, increment up

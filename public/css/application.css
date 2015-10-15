@@ -36,4 +36,16 @@ text-align: center;
 }
 */
 
+img {
+  width: 70%;
+}
+
+.wizard {
+  font-family: 'Montserrat', sans-serif;
+}
+
+input {
+  border-radius: 8px;
+  border: 1.5px solid black;
+}
 
