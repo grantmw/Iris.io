@@ -1,12 +1,15 @@
+enable :sessions
+
 get '/users/:u_id/tests/cb' do
   @e_message = nil
+  session[:cb_tries] = nil
   erb :cb
 end
 
 
 post '/users/:u_id/tests/cb' do
 
-  @e_message = "Errors with questions: "
+  @e_message = "Try again. Errors with questions: "
   if params[:ten] != "10"
     @e_message += '1 '
   end
@@ -38,9 +41,23 @@ post '/users/:u_id/tests/cb' do
     @e_message += '9 '
   end
   if not /\d/ === @e_message
-    @e_message = "All Correct"
+    session[:cb_tries] = nil
+    @e_message = "All Correct, Result: Negative"
+    SavedTest.create(user_id: session[:id], result_cb: 'negative')
+    erb :cb
+  else
+    if session[:cb_tries]
+      session[:cb_tries] += 1
+    else
+      session[:cb_tries] = 1
+    end
+    @e_message += ". Attempts: #{session[:cb_tries]}"
+    if session[:cb_tries] == 4
+      SavedTest.create(user_id: session[:id], result_cb: 'positive')
+      @e_message = "Test failed. Result: Positive. Try again."
+      session[:cb_tries] = 0
+    end
   end
-
   erb :cb
   # redirect '/users/#{params[:u_id]}/tests/cb'
 end
