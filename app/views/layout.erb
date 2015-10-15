@@ -10,20 +10,33 @@
   <!--
     application.css is where you put your styles
   -->
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="/css/application.css">
-
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
+  <script src="bootstrap/js/bootstrap.js"></script>
+
 
   <title></title>
 </head>
 <body>
-  <a href="/">Home</a>
-  <% if session[:id] %>
-    <a href="/users/logout">Logout</a>
-    <a href="/users/<%=session[:id]%>/profile">Profile</a>
-  <% end %>
-    <hr>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/">
+          <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+          Home
+        </a>
+        <% if session[:id] %>
+          <a href="/users/<%=session[:id]%>/profile">Profile</a>
+          <a href="/users/logout">Logout</a>
+        <% else %>
+        <a href="/users/new">Register</a>
+        <% end %>
+      </div>
+    </div>
+  </nav>
   <%= yield %>
 </body>
 </html>

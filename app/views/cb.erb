@@ -1,0 +1,43 @@
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <%if @e_message%>
+        <%=@e_message%>
+      <%end%>
+    </div>
+  </div>
+  <form action='/users/<%=session[:id]%>/tests/cb' method="post" class='text-center'>
+    <div class="row">
+      <div class="col-md-4"><h1>1</h1>
+      <img src="/pip/10.jpg" alt="10"><input type="text" name="ten"></div>
+      <div class="col-md-4"><h1>2</h1>
+      <img src="/pip/42.jpg" alt="42"><input type="text" name="fourtwo"></div>
+      <div class="col-md-4"><h1>3</h1>
+      <img src="/pip/2.jpg" alt="2"><input type="text" name="two"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"><h1>4</h1>
+      <img src="/pip/29.jpg" alt="29"> <input type="text" name="twonine"> </div>
+      <div class="col-md-4"><h1><h1>5</h1>
+      <img src="/pip/16.jpg" alt="16"> <input type="text" name="onesix"> </div>
+      <div class="col-md-4"><h1>6</h1>
+      <img src="/pip/5.jpg" alt="5"> <input type="text" name="five"> </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-4"><h1>7</h1>
+      <img src="/pip/57.jpg" alt="57"><input type="text" name="fiveseven"></div>
+      <div class="col-md-4"><h1>8</h1>
+      <img src="/pip/6.jpg" alt="6"> <input type="text" name="six"></div>
+      <div class="col-md-4"><h1>9</h1>
+      <img src="/pip/7.jpg" alt="7"> <input type="text" name="seven"> </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Check Answers">
+    </div>
+  </form>
+</div>

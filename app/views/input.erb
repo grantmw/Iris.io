@@ -1,24 +1,26 @@
+<div class="inputpage">
 <div class="input">
 <style>
-p {font-size: <%= Vision.find(session[:line]).font_size.to_f%>em}
+p {font-size: <%= Vision.find(session[:line]).font_size.to_f%>px}
 </style>
 
 <p> <%=@list%> </p>
 
+
 </div>
 
 <%if session[:goagain]%>
-<form action='/users/<%=session[:id]%>/tests/vision/single' method='post'>
+<form action='/users/<%=session[:id]%>/tests/vision/single' method='post' class='text-center'>
   <input type='text' name='answer' autofocus="autofocus">
   <input type="hidden" name='fiveletters' value = <%=@list%>>
   <input type='submit' value = 'Submit'>
 </form>
 <%else%>
-<form action='/users/<%=session[:id]%>/tests/vision/both' method='post'>
+<form action='/users/<%=session[:id]%>/tests/vision/both' method='post' class='text-center'>
   <input type='text' name='answer' autofocus="autofocus">
   <input type="hidden" name='fiveletters' value = <%=@list%>>
   <input type='submit' value = 'Submit'>
 </form>
 <%end%>
 
-<a href="/users/<%=session[:id]%>/reset"><button>Home</button></a>
+</div>
