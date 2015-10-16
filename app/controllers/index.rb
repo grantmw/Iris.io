@@ -25,6 +25,7 @@ post '/users/authenticate' do
   @user = User.find_by(email: params[:email])
   if @user.password == params[:password]
     session[:id] = @user.id
+    session[:tries] = 0
     redirect "/users/#{@user.id}/tests"
   else
     redirect '/'
