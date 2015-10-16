@@ -12,6 +12,12 @@ gem 'sinatra-contrib'
 gem 'activesupport', '~>4.2.0'
 gem 'activerecord', '~>4.2.0'
 
+#for heroku
+gem "sinatra-activerecord"
+gem 'sinatra-flash'
+gem 'sinatra-redirect-with-flash'
+
+
 gem 'rake'
 
 gem 'shotgun'

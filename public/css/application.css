@@ -49,3 +49,9 @@ input {
   border: 1.5px solid black;
 }
 
+nav.navbar.navbar-default {
+    margin-bottom: 0;
+    font-size: 1.3em;
+    word-spacing: 20px;
+}
+
