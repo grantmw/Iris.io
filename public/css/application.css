@@ -57,6 +57,11 @@ nav.navbar.navbar-default {
     padding-left: .5em;
 }
 
+.sign_in {
+  background-image: url("/pip/traintracks.jpg");
+  background-size: 100% auto;
+  height: 1000px;
+}
 
 
 
