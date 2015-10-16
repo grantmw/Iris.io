@@ -21,25 +21,25 @@
 
 
 
-  <title></title>
+  <title>Iris</title>
 </head>
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a href="/">
-          <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-          Home
-        </a>
-        <% if session[:id] %>
-          <a href="/users/<%=session[:id]%>/profile">Profile</a>
-          <a href="/users/logout">Logout</a>
-        <% else %>
-        <a href="/users/new">Register</a>
-        <% end %>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="/">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            Home
+          </a>
+          <% if session[:id] %>
+            <a href="/users/<%=session[:id]%>/profile">Profile</a>
+            <a href="/users/logout">Logout</a>
+          <% else %>
+          <a href="/users/new">Register</a>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </nav>
-  <%= yield %>
+    </nav>
+    <%= yield %>
 </body>
 </html>

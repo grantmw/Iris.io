@@ -45,7 +45,7 @@ img {
 }
 
 input {
-  border-radius: 8px;
+  border-radius: 3px;
   border: 1.5px solid black;
 }
 
@@ -53,5 +53,10 @@ nav.navbar.navbar-default {
     margin-bottom: 0;
     font-size: 1.3em;
     word-spacing: 20px;
+    padding-top: .5em;
+    padding-left: .5em;
 }
+
+
+
 
