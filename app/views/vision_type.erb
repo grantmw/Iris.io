@@ -5,14 +5,14 @@
   </div>
   <br><br>
   <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-3 col-sm-6  text-center">
+    <div class="col-md-2"></div>
+    <div class="col-md-4 col-sm-6  text-center">
       <a href="/users/<%=session[:id]%>/tests/vision/both"><button type="button" class="btn btn-primary btn-lg">Both</button></a>
       <br>
       <h3><small>Visual acuity test using both eyes</small>
     </div>
 
-    <div class="col-md-3 col-sm-6  text-center">
+    <div class="col-md-4 col-sm-6  text-center">
       <a href="/users/<%=session[:id]%>/tests/vision/single"><button type="button" class="btn btn-success btn-lg">Single</button>
         <%if session[:goagain] == 'off' %>
           <%session[:goagain] = 'on'%>
@@ -22,12 +22,12 @@
       <br>
       <h3><small> Visual acuity test for each individual eye </small></h3>
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-2"></div>
 
     </div>
   </div>
 </div>
-<div class="text-center col-sm-12">
+<div class="text-center col-sm-12 instructions">
   <img src="/pip/visioninstructions.png">
 </div>
 

@@ -17,16 +17,16 @@ post '/users/:u_id/tests/cb' do
     @e_message += '2 '
   end
 
-  if params[:two] != "2"
-    @e_message += '3 '
+  if params[:onesix] != "16"
+    @e_message += '3'
 
   end
   if params[:twonine] != "29"
     @e_message += '4 '
 
   end
-  if params[:onesix] != "16"
-    @e_message += '5 '
+  if params[:two] != "2"
+    @e_message += '5'
   end
   if params[:five] != "5"
     @e_message += '6 '
