@@ -18,7 +18,7 @@ post '/users/:u_id/tests/cb' do
   end
 
   if params[:onesix] != "16"
-    @e_message += '3'
+    @e_message += '3 '
 
   end
   if params[:twonine] != "29"
@@ -26,7 +26,7 @@ post '/users/:u_id/tests/cb' do
 
   end
   if params[:two] != "2"
-    @e_message += '5'
+    @e_message += '5 '
   end
   if params[:five] != "5"
     @e_message += '6 '
