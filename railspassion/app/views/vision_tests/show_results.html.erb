@@ -1,0 +1,20 @@
+<% if session[:goagain] == 'on' %>
+
+    <% session[:goagain] = 'off' %>
+    <head>
+      <meta http-equiv="refresh" content="3;url=/vision_tests/single" />
+    </head>
+<% end %>
+
+
+<div class = 'result'>
+  <p>Your Vision:<p>
+  <%=@result%>
+  <br>
+  <% if session[:goagain] == 'off' || session[:goagain] == nil%>
+    <a href="/vision_tests/both"><button style="border: 1px solid black">Retest</button></a>
+    <a href="/vision_tests/reset"><button style="color:red; border: 1px solid black">Home</button></a>
+  <% end %>
+</div>
+
+
